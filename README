@@ -1,0 +1,17 @@
+mysql DB 代理，提供DB功能
+
+more see http://dev.mysql.com/doc/refman/5.1/zh/apis.html#c-api-datatypes
+lmysqlclient_r ??
+
+编译链接 mysql 客户端
+使用mysql_config --include 
+使用mysql_config --libs_r //连接到可重入版本（线程安全，信号安全)
+使用mysql_config --libs //非可重入
+               
+
+使用mysql_init
+其他init call会被 mysql_init 调用
+mysql_libray_init
+mysql_thread_init
+
+vim:ft=help
