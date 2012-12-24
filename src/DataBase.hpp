@@ -1,14 +1,13 @@
-#ifndef  DATABASE_INC
-#define  DATABASE_INC
+#ifndef  DATABASE_INC_
+#define  DATABASE_INC_
 
-//#include "Common/Common.hpp"
-//#include "Common/MsgHandler.hpp"
-//#include "DataBase.hpp"
-
+#include <string>
 #include <mysql/my_global.h>
 #include <mysql/my_sys.h>
 #include <mysql/mysql.h>
 
+
+namespace dbproxy {
 
 class DataBase
 {
@@ -18,12 +17,15 @@ public:
   {}
 	~DataBase() {} 
 
-  void update( UInt32 now );
+  void update(uint32_t now );
 public:
   //@biref: 连接DB 
   bool init() ;
   //@biref: 清理
   void unInit();
+
+public:
+  uint32_t getServerVersion();
 
 private:
   //@brief: 连接保活
@@ -34,9 +36,7 @@ private:
   bool getResult(const std::string& sql) ;
   bool query(const std::string& sql) ;
 
-  //@brief: 查询是否存在
-  //@return: 存在返回true
-  bool isExists(const std::string& sql);
+
 
 private:
   MYSQL_RES *_res;
@@ -45,6 +45,6 @@ private:
   std::string _last_query; //最后一条SQL
 };
 
-extern DataBase gDataBase;
+} // end namespace
 
 #endif   /* ----- #ifndef database_INC  ----- */

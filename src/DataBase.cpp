@@ -1,13 +1,15 @@
 #include <errmsg.h> //mysql/
-#include "Skynet/src/log.h"
-#include "Skynet/src/net_if.h"
+#include "DataBase.hpp"
 
-
-DataBase gDataBase;
+namespace dbproxy {
 
 static const int LEN=512;
 static char sqlBuf[LEN]; //sql 语句buf
 
+uint32_t DataBase::getServerVersion()
+{
+  return mysql_get_server_version(&_mysql);
+}
 
 //@brief: 执行SQL查询语句
 bool DataBase::query(const std::string& sql)
@@ -16,7 +18,7 @@ bool DataBase::query(const std::string& sql)
 again:
   if (mysql_real_query(&_mysql, sql.c_str(), sql.length())) {
     int ecode = mysql_errno(&_mysql);
-    ERROR_LOG("query [%s] failed errno:%u  %s", sql.c_str(), ecode, mysql_error(&_mysql));
+    printf("query [%s] failed errno:%u  %s", sql.c_str(), ecode, mysql_error(&_mysql));
     if (ecode == 2013 ) {
       goto again;
     }
@@ -45,7 +47,7 @@ bool DataBase::getResult(const std::string& sql)
   while ((_row = mysql_fetch_row(_res)) != NULL) {
     // get cols
     for (size_t t=0; t < mysql_num_fields(_res); ++t) {
-      DEBUG_LOG("%s",_row[t]);
+      printf("%s",_row[t]);
     }
   }
 
@@ -75,7 +77,7 @@ void DataBase::unInit()
 bool DataBase::connectDB()
 {
   if (mysql_init(&_mysql) == NULL) {
-    ERROR_LOG("mysql_init error");
+    printf("mysql_init error");
     return false;
   }
 
@@ -86,15 +88,14 @@ bool DataBase::connectDB()
   if (NULL == mysql_real_connect(&_mysql, 
                                  "localhost",
                                  "root", "12345",
-                                 "xpoker",
+                                 "test",
                                  0/*port*/, NULL, 0)) { //CLIENT_FOUND_ROWS
-    ERROR_LOG( "Could not connect to MySQL database at %s: %s\n",
+    printf( "Could not connect to MySQL database at %s: %s\n",
               "localhost", mysql_error(&_mysql));
     mysql_close(&_mysql);
     return false;
   } 
-
-  DEBUG_LOG("Connect Mysql %s %s Succuss", "localhost", "xpoker");
+  printf("Connect Mysql %s %s Succuss\n", "localhost", "xpoker");
   return true;
 }
 
@@ -107,13 +108,10 @@ bool DataBase::disconnectDB()
 void DataBase::interactiveConnect()
 {
   if (mysql_ping(&_mysql) != 0 ) {
-    ERROR_LOG( "ping MySQL database failed: %s\n",  mysql_error(&_mysql));
+    printf( "ping MySQL database failed: %s\n",  mysql_error(&_mysql));
     return ;
   }
 
-
-//  ///两分钟ping一次
-//  UInt32 time = TimeUtil::timerTime(TimeUtil::MINUTE * 2);
-//  VarMsg msg(Timer_ActiveMysqlConn);
-//  Timer::addTimeOut(time, msg);
 }
+
+} //end namespace

@@ -11,10 +11,19 @@
  * =====================================================================================
  */
 
-#include "common/log.hpp"
+#include "DBMng.hpp"
+#include "ThreadMng.hpp"
 
-int main() {
-  log_init("./log", log_lvl_error, 1<31, 100, "");
+int main() 
+{
+  dbproxy::gDBMng.init();
+//  dbproxy::ThreadMng mng;
+//  mng.init();
+
+
+  dbproxy::DataBase *db = dbproxy::gDBMng.getDB(0);
+  printf("get version:%u\n", db->getServerVersion());
+
 
   return 0;
 }

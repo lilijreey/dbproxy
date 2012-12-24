@@ -14,7 +14,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 
-#include "log.h"
+#include "log.hpp"
 
 #ifdef  likely
 #undef  likely
@@ -427,7 +427,7 @@ int log_init(const char* dir, log_lvl_t lvl, uint32_t size, int maxfiles, const 
 	/*
 	 * log file is no larger than 2GB
 	 */
-	if ( size > (1 << 31) ) {
+	if ( size > (uint32_t)(1 << 31) ) {
 		fprintf(stderr, "init log error, invalid log size=%d\n", size);
 		goto exit_entry;
 	}

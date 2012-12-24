@@ -1,5 +1,12 @@
 mysql DB 代理，提供DB功能
 
+实现功能
+支持高并发mysql操作
+使用线程
+
+
+
+
 more see http://dev.mysql.com/doc/refman/5.1/zh/apis.html#c-api-datatypes
 lmysqlclient_r ??
 
@@ -13,5 +20,6 @@ lmysqlclient_r ??
 其他init call会被 mysql_init 调用
 mysql_libray_init
 mysql_thread_init
+
 
 vim:ft=help
