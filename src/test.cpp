@@ -17,13 +17,9 @@
 int main() 
 {
   dbproxy::gDBMng.init();
-//  dbproxy::ThreadMng mng;
-//  mng.init();
+  dbproxy::gThreadMng.init();
 
 
-  dbproxy::DataBase *db = dbproxy::gDBMng.getDB(0);
-  printf("get version:%u\n", db->getServerVersion());
-
-
+  sleep(5);
   return 0;
 }

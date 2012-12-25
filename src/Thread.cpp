@@ -12,28 +12,32 @@
  */
 
 #include "Thread.hpp"
+#include "DBMng.hpp"
 
 namespace dbproxy {
 
-//@param: arg is Thread *
-void * thread_start(void *arg)
-{
-  Thread *t = static_cast<Thread *>(arg);
-
-  printf("Thread[%u] num[%u]\n", t->getNumber(), static_cast<uint32_t>(t->getTid()));
-  PCHECK(pthread_detach(t->getTid())); //Qus. need join???
-  sleep(3);
-
-  pthread_exit(0);
-  return NULL;
-}
+static std::pair<pthread_mutex_t, uint8_t> 
+    initMutex = {PTHREAD_MUTEX_INITIALIZER, 0};
 
 void Thread::init(uint8_t num)
 {
-  assert(_num == THREAD_COUNT);
-  _num = num;
-  printf("create num:%u\n", num);
-  PCHECK(pthread_create(&_tid, NULL, thread_start, this));
+  initMutex.second = num;
+  assert(num <= THREAD_COUNT);
+  _num = initMutex.second;
+  _tid = pthread_self();
+  _db = gDBMng.getDB(_num); 
+  PCHECK(pthread_detach(_tid));
+
+  PCHECK(pthread_mutex_lock(&initMutex.first));
+  printf("Thread[%u] num[%tu]\n", _num, _tid);
+  printf("vsersion[%u]\n",_db->getServerVersion());
+  PCHECK(pthread_mutex_unlock(&initMutex.first));
+
+
+
+  sleep(3);
+
+  //pthread_exit(0);
 }
 
 

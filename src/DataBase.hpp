@@ -37,12 +37,12 @@ private:
   bool query(const std::string& sql) ;
 
 
-
 private:
   MYSQL_RES *_res;
   MYSQL_ROW _row;
   MYSQL _mysql;
   std::string _last_query; //最后一条SQL
+  //Thread * _thread ??
 };
 
 } // end namespace

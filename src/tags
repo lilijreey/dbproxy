@@ -10,14 +10,22 @@ BOOT_FAIL	common/log.cpp	290;"	d	file:
 BOOT_LOG	common/log.hpp	332;"	d
 BOOT_LOG2	common/log.hpp	343;"	d
 BOOT_OK	common/log.cpp	289;"	d	file:
+CONFIG_INC_	Config.hpp	20;"	d
 CRIT_LOG	common/log.hpp	190;"	d
 CRIT_LOG	common/log.hpp	195;"	d
+DATABASE_INC_	DataBase.hpp	2;"	d
+DBMNG_INC	DBMng.hpp	20;"	d
+DBMng	DBMng.hpp	/^  DBMng() {};$/;"	f	class:dbproxy::DBMng	access:public	signature:()
+DBMng	DBMng.hpp	/^class DBMng$/;"	c	namespace:dbproxy
+DB_CONNECT_COUNT	Config.hpp	/^static const uint32_t  DB_CONNECT_COUNT = 5;$/;"	v
 DEBUG_LOG	common/log.hpp	296;"	d
 DEBUG_LOG	common/log.hpp	301;"	d
 DEBUG_RETURN	common/log.hpp	398;"	d
 DEBUG_RETURN_VOID	common/log.hpp	409;"	d
 DETAIL	common/log.hpp	121;"	d
 DETAIL	common/log.hpp	124;"	d
+DataBase	DataBase.hpp	/^  DataBase() $/;"	f	class:dbproxy::DataBase	access:public	signature:()
+DataBase	DataBase.hpp	/^class DataBase$/;"	c	namespace:dbproxy
 EMERG_LOG	common/log.hpp	147;"	d
 EMERG_LOG	common/log.hpp	152;"	d
 ERROR_LOG	common/log.hpp	211;"	d
@@ -48,6 +56,7 @@ KTRACE_LOG	common/log.hpp	320;"	d
 KTRACE_LOG	common/log.hpp	324;"	d
 KWARN_LOG	common/log.hpp	235;"	d
 KWARN_LOG	common/log.hpp	239;"	d
+LEN	DataBase.cpp	/^static const int LEN=512;$/;"	m	namespace:dbproxy	file:
 LOG_H_	common/log.hpp	12;"	d
 MAX_LOG_CNT	common/log.cpp	29;"	d	file:
 NOTI_LOG	common/log.hpp	254;"	d
@@ -64,13 +73,12 @@ SV_TEST	common/tools.h	79;"	d
 S_TEST	common/my-utility-lib/zhao/tools.h	92;"	d
 S_TEST	common/tools.h	92;"	d
 THREADMNG_INC	ThreadMng.hpp	20;"	d
-THREAD_COUNT	Config.hpp	/^const uint8_t THREAD_COUNT = 2;$/;"	v
+THREAD_COUNT	Config.hpp	/^static const uint8_t THREAD_COUNT = 2;$/;"	v
 THREAD_INC	Thread.hpp	20;"	d
 TRACE_LOG	common/log.hpp	318;"	d
 TRACE_LOG	common/log.hpp	323;"	d
-Thread	Thread.hpp	/^  Thread(uint8_t num):$/;"	f	class:dbproxy::Thread	access:public	signature:(uint8_t num)
+Thread	Thread.hpp	/^  Thread():$/;"	f	class:dbproxy::Thread	access:public	signature:()
 Thread	Thread.hpp	/^class Thread $/;"	c	namespace:dbproxy
-ThreadMng	ThreadMng.hpp	/^  ThreadMng() {}$/;"	f	class:dbproxy::ThreadMng	access:public	signature:()
 ThreadMng	ThreadMng.hpp	/^class ThreadMng$/;"	c	namespace:dbproxy
 WARN_LOG	common/log.hpp	233;"	d
 WARN_LOG	common/log.hpp	238;"	d
@@ -78,18 +86,24 @@ WARN_RETURN	common/log.hpp	376;"	d
 WARN_RETURN_VOID	common/log.hpp	387;"	d
 _MY_UTILITY_H_	common/my-utility-lib/zhao/tools.h	2;"	d
 _MY_UTILITY_H_	common/tools.h	2;"	d
+_db	Thread.hpp	/^  DataBase *_db; $/;"	m	class:dbproxy::Thread	access:private
+_dbPool	DBMng.hpp	/^ DataBase _dbPool[DB_CONNECT_COUNT];$/;"	m	class:dbproxy::DBMng	access:private
 _debug_msg	common/my-utility-lib/zhao/tools.h	131;"	d
 _debug_msg	common/tools.h	131;"	d
 _err_exit	common/my-utility-lib/zhao/tools.h	156;"	d
 _err_exit	common/tools.h	156;"	d
 _errsys_exit	common/my-utility-lib/zhao/tools.h	141;"	d
 _errsys_exit	common/tools.h	141;"	d
+_last_query	DataBase.hpp	/^  std::string _last_query; \/\/最后一条SQL$/;"	m	class:dbproxy::DataBase	access:private
+_mysql	DataBase.hpp	/^  MYSQL _mysql;$/;"	m	class:dbproxy::DataBase	access:private
 _num	Thread.hpp	/^  uint8_t  _num; \/\/application-define id$/;"	m	class:dbproxy::Thread	access:private
 _print_line_	common/my-utility-lib/zhao/tools.h	/^static inline void _print_line_(const char *file, unsigned int line) __attribute__((always_inline)) ;$/;"	p	signature:(const char *file, unsigned int line)
 _print_line_	common/my-utility-lib/zhao/tools.h	/^static inline void _print_line_(const char *file, unsigned int line)$/;"	f	signature:(const char *file, unsigned int line)
 _print_line_	common/tools.h	/^static inline void _print_line_(const char *file, unsigned int line) __attribute__((always_inline)) ;$/;"	p	signature:(const char *file, unsigned int line)
 _print_line_	common/tools.h	/^static inline void _print_line_(const char *file, unsigned int line)$/;"	f	signature:(const char *file, unsigned int line)
-_threadPool	ThreadMng.hpp	/^  Thread *_threadPool[THREAD_COUNT] ;$/;"	m	class:dbproxy::ThreadMng	access:private
+_res	DataBase.hpp	/^  MYSQL_RES *_res;$/;"	m	class:dbproxy::DataBase	access:private
+_row	DataBase.hpp	/^  MYSQL_ROW _row;$/;"	m	class:dbproxy::DataBase	access:private
+_threadPool	ThreadMng.hpp	/^  Thread _threadPool[THREAD_COUNT] ;$/;"	m	class:dbproxy::ThreadMng	access:private
 _tid	Thread.hpp	/^  pthread_t _tid; \/\/ return by pthread_create$/;"	m	class:dbproxy::Thread	access:private
 _trace_msg	common/my-utility-lib/zhao/tools.h	119;"	d
 _trace_msg	common/tools.h	119;"	d
@@ -98,32 +112,75 @@ base_filename_len	common/log.cpp	/^	int		base_filename_len;$/;"	m	struct:fds_t	f
 boot_log	common/log.cpp	/^void boot_log(int ok, int dummy, const char *fmt, ...)$/;"	f	signature:(int ok, int dummy, const char *fmt, ...)
 boot_log	common/log.hpp	/^void boot_log(int ok, int dummy, const char* fmt, ...);$/;"	p	signature:(int ok, int dummy, const char* fmt, ...)
 color_end	common/log.cpp	/^static const char* color_end = "\\e[m";$/;"	v	file:
-config_INC	Config.hpp	20;"	d
 config_max_log_files	common/log.cpp	/^static int config_max_log_files;\/\/保存原有的max_log_files $/;"	v	file:
+connectDB	DataBase.cpp	/^bool DataBase::connectDB()$/;"	f	class:dbproxy::DataBase	signature:()
+connectDB	DataBase.hpp	/^  bool connectDB();$/;"	p	class:dbproxy::DataBase	access:private	signature:()
 cur_day_seq_count	common/log.cpp	/^	int  	cur_day_seq_count;\/\/当天轮转文件的个数$/;"	m	struct:fds_t	file:	access:public
 day	common/log.cpp	/^	int		day;$/;"	m	struct:fds_t	file:	access:public
+dbproxy	DBMng.cpp	/^namespace dbproxy$/;"	n	file:
+dbproxy	DBMng.hpp	/^namespace dbproxy {$/;"	n
+dbproxy	DataBase.cpp	/^namespace dbproxy {$/;"	n	file:
+dbproxy	DataBase.hpp	/^namespace dbproxy {$/;"	n
 dbproxy	Thread.cpp	/^namespace dbproxy {$/;"	n	file:
 dbproxy	Thread.hpp	/^namespace dbproxy {$/;"	n
-dbproxy	ThreadMng.cpp	/^namespace dbproxy$/;"	n	file:
-dbproxy	ThreadMng.hpp	/^namespace dbproxy$/;"	n
+dbproxy	ThreadMng.cpp	/^namespace dbproxy { $/;"	n	file:
+dbproxy	ThreadMng.hpp	/^namespace dbproxy {$/;"	n
+dbproxy::DBMng	DBMng.hpp	/^class DBMng$/;"	c	namespace:dbproxy
+dbproxy::DBMng::DBMng	DBMng.hpp	/^  DBMng() {};$/;"	f	class:dbproxy::DBMng	access:public	signature:()
+dbproxy::DBMng::_dbPool	DBMng.hpp	/^ DataBase _dbPool[DB_CONNECT_COUNT];$/;"	m	class:dbproxy::DBMng	access:private
+dbproxy::DBMng::getDB	DBMng.hpp	/^DataBase *DBMng::getDB(uint8_t index)$/;"	f	class:dbproxy::DBMng	signature:(uint8_t index)
+dbproxy::DBMng::init	DBMng.cpp	/^bool DBMng::init() $/;"	f	class:dbproxy::DBMng	signature:()
+dbproxy::DBMng::init	DBMng.hpp	/^  bool init() ;$/;"	p	class:dbproxy::DBMng	access:public	signature:()
+dbproxy::DBMng::unInit	DBMng.cpp	/^bool DBMng::unInit()$/;"	f	class:dbproxy::DBMng	signature:()
+dbproxy::DBMng::unInit	DBMng.hpp	/^  bool unInit() ;$/;"	p	class:dbproxy::DBMng	access:public	signature:()
+dbproxy::DBMng::~DBMng	DBMng.hpp	/^  ~DBMng() {};$/;"	f	class:dbproxy::DBMng	access:public	signature:()
+dbproxy::DataBase	DataBase.hpp	/^class DataBase$/;"	c	namespace:dbproxy
+dbproxy::DataBase::DataBase	DataBase.hpp	/^  DataBase() $/;"	f	class:dbproxy::DataBase	access:public	signature:()
+dbproxy::DataBase::_last_query	DataBase.hpp	/^  std::string _last_query; \/\/最后一条SQL$/;"	m	class:dbproxy::DataBase	access:private
+dbproxy::DataBase::_mysql	DataBase.hpp	/^  MYSQL _mysql;$/;"	m	class:dbproxy::DataBase	access:private
+dbproxy::DataBase::_res	DataBase.hpp	/^  MYSQL_RES *_res;$/;"	m	class:dbproxy::DataBase	access:private
+dbproxy::DataBase::_row	DataBase.hpp	/^  MYSQL_ROW _row;$/;"	m	class:dbproxy::DataBase	access:private
+dbproxy::DataBase::connectDB	DataBase.cpp	/^bool DataBase::connectDB()$/;"	f	class:dbproxy::DataBase	signature:()
+dbproxy::DataBase::connectDB	DataBase.hpp	/^  bool connectDB();$/;"	p	class:dbproxy::DataBase	access:private	signature:()
+dbproxy::DataBase::disconnectDB	DataBase.cpp	/^bool DataBase::disconnectDB()$/;"	f	class:dbproxy::DataBase	signature:()
+dbproxy::DataBase::disconnectDB	DataBase.hpp	/^  bool disconnectDB();$/;"	p	class:dbproxy::DataBase	access:private	signature:()
+dbproxy::DataBase::getResult	DataBase.cpp	/^bool DataBase::getResult(const std::string& sql) $/;"	f	class:dbproxy::DataBase	signature:(const std::string& sql)
+dbproxy::DataBase::getResult	DataBase.hpp	/^  bool getResult(const std::string& sql) ;$/;"	p	class:dbproxy::DataBase	access:private	signature:(const std::string& sql)
+dbproxy::DataBase::getServerVersion	DataBase.cpp	/^uint32_t DataBase::getServerVersion()$/;"	f	class:dbproxy::DataBase	signature:()
+dbproxy::DataBase::getServerVersion	DataBase.hpp	/^  uint32_t getServerVersion();$/;"	p	class:dbproxy::DataBase	access:public	signature:()
+dbproxy::DataBase::init	DataBase.cpp	/^bool DataBase::init() $/;"	f	class:dbproxy::DataBase	signature:()
+dbproxy::DataBase::init	DataBase.hpp	/^  bool init() ;$/;"	p	class:dbproxy::DataBase	access:public	signature:()
+dbproxy::DataBase::interactiveConnect	DataBase.cpp	/^void DataBase::interactiveConnect()$/;"	f	class:dbproxy::DataBase	signature:()
+dbproxy::DataBase::interactiveConnect	DataBase.hpp	/^  void interactiveConnect();$/;"	p	class:dbproxy::DataBase	access:private	signature:()
+dbproxy::DataBase::query	DataBase.cpp	/^bool DataBase::query(const std::string& sql)$/;"	f	class:dbproxy::DataBase	signature:(const std::string& sql)
+dbproxy::DataBase::query	DataBase.hpp	/^  bool query(const std::string& sql) ;$/;"	p	class:dbproxy::DataBase	access:private	signature:(const std::string& sql)
+dbproxy::DataBase::unInit	DataBase.cpp	/^void DataBase::unInit() $/;"	f	class:dbproxy::DataBase	signature:()
+dbproxy::DataBase::unInit	DataBase.hpp	/^  void unInit();$/;"	p	class:dbproxy::DataBase	access:public	signature:()
+dbproxy::DataBase::update	DataBase.hpp	/^  void update(uint32_t now );$/;"	p	class:dbproxy::DataBase	access:public	signature:(uint32_t now )
+dbproxy::DataBase::~DataBase	DataBase.hpp	/^	~DataBase() {} $/;"	f	class:dbproxy::DataBase	access:public	signature:()
+dbproxy::LEN	DataBase.cpp	/^static const int LEN=512;$/;"	m	namespace:dbproxy	file:
 dbproxy::Thread	Thread.hpp	/^class Thread $/;"	c	namespace:dbproxy
-dbproxy::Thread::Thread	Thread.hpp	/^  Thread(uint8_t num):$/;"	f	class:dbproxy::Thread	access:public	signature:(uint8_t num)
+dbproxy::Thread::Thread	Thread.hpp	/^  Thread():$/;"	f	class:dbproxy::Thread	access:public	signature:()
+dbproxy::Thread::_db	Thread.hpp	/^  DataBase *_db; $/;"	m	class:dbproxy::Thread	access:private
 dbproxy::Thread::_num	Thread.hpp	/^  uint8_t  _num; \/\/application-define id$/;"	m	class:dbproxy::Thread	access:private
 dbproxy::Thread::_tid	Thread.hpp	/^  pthread_t _tid; \/\/ return by pthread_create$/;"	m	class:dbproxy::Thread	access:private
 dbproxy::Thread::getNumber	Thread.hpp	/^  uint8_t getNumber() const {return _num; }$/;"	f	class:dbproxy::Thread	access:public	signature:() const
 dbproxy::Thread::getTid	Thread.hpp	/^  pthread_t getTid() const  {return _tid; }$/;"	f	class:dbproxy::Thread	access:public	signature:() const
-dbproxy::Thread::init	Thread.cpp	/^void Thread::init()$/;"	f	class:dbproxy::Thread	signature:()
-dbproxy::Thread::init	Thread.hpp	/^  void init();$/;"	p	class:dbproxy::Thread	access:public	signature:()
+dbproxy::Thread::init	Thread.cpp	/^void Thread::init(uint8_t num)$/;"	f	class:dbproxy::Thread	signature:(uint8_t num)
+dbproxy::Thread::init	Thread.hpp	/^  void init(uint8_t num);$/;"	p	class:dbproxy::Thread	access:public	signature:(uint8_t num)
 dbproxy::Thread::~Thread	Thread.hpp	/^  ~Thread() {}$/;"	f	class:dbproxy::Thread	access:public	signature:()
 dbproxy::ThreadMng	ThreadMng.hpp	/^class ThreadMng$/;"	c	namespace:dbproxy
-dbproxy::ThreadMng::ThreadMng	ThreadMng.hpp	/^  ThreadMng() {}$/;"	f	class:dbproxy::ThreadMng	access:public	signature:()
-dbproxy::ThreadMng::_threadPool	ThreadMng.hpp	/^  Thread *_threadPool[THREAD_COUNT] ;$/;"	m	class:dbproxy::ThreadMng	access:private
+dbproxy::ThreadMng::_threadPool	ThreadMng.hpp	/^  Thread _threadPool[THREAD_COUNT] ;$/;"	m	class:dbproxy::ThreadMng	access:private
 dbproxy::ThreadMng::init	ThreadMng.cpp	/^bool ThreadMng::init() $/;"	f	class:dbproxy::ThreadMng	signature:()
-dbproxy::ThreadMng::init	ThreadMng.hpp	/^  bool init() ;$/;"	p	class:dbproxy::ThreadMng	access:public	signature:()
-dbproxy::ThreadMng::~ThreadMng	ThreadMng.hpp	/^  ~ThreadMng() {}$/;"	f	class:dbproxy::ThreadMng	access:public	signature:()
-dbproxy::thread_start	Thread.cpp	/^void * thread_start(void *arg)$/;"	f	namespace:dbproxy	signature:(void *arg)
+dbproxy::ThreadMng::init	ThreadMng.hpp	/^  bool init();$/;"	p	class:dbproxy::ThreadMng	access:public	signature:()
+dbproxy::gDBMng	DBMng.cpp	/^DBMng gDBMng;$/;"	m	namespace:dbproxy	file:
+dbproxy::gThreadMng	ThreadMng.cpp	/^ThreadMng gThreadMng;$/;"	m	namespace:dbproxy	file:
+dbproxy::sqlBuf	DataBase.cpp	/^static char sqlBuf[LEN]; \/\/sql 语句buf$/;"	m	namespace:dbproxy	file:
+dbproxy::threadStart	ThreadMng.cpp	/^void * threadStart(void *arg)$/;"	f	namespace:dbproxy	signature:(void *arg)
 debug_msg	common/my-utility-lib/zhao/tools.h	129;"	d
 debug_msg	common/tools.h	129;"	d
+disconnectDB	DataBase.cpp	/^bool DataBase::disconnectDB()$/;"	f	class:dbproxy::DataBase	signature:()
+disconnectDB	DataBase.hpp	/^  bool disconnectDB();$/;"	p	class:dbproxy::DataBase	access:private	signature:()
 enable_multi_thread	common/log.cpp	/^void enable_multi_thread()$/;"	f	signature:()
 enable_multi_thread	common/log.hpp	/^void enable_multi_thread();$/;"	p	signature:()
 err_exit	common/my-utility-lib/zhao/tools.h	154;"	d
@@ -138,21 +195,34 @@ fds_t::cur_day_seq_count	common/log.cpp	/^	int  	cur_day_seq_count;\/\/当天轮
 fds_t::day	common/log.cpp	/^	int		day;$/;"	m	struct:fds_t	file:	access:public
 fds_t::opfd	common/log.cpp	/^	int		opfd;$/;"	m	struct:fds_t	file:	access:public
 fds_t::seq	common/log.cpp	/^	int		seq;$/;"	m	struct:fds_t	file:	access:public
+gDBMng	DBMng.cpp	/^DBMng gDBMng;$/;"	m	namespace:dbproxy	file:
+gThreadMng	ThreadMng.cpp	/^ThreadMng gThreadMng;$/;"	m	namespace:dbproxy	file:
 g_log_dest	common/log.cpp	/^static log_dest_t g_log_dest = log_dest_terminal; \/\/ write log to terminal by default$/;"	v	file:
 g_logtime_interval	common/log.cpp	/^static int  g_logtime_interval; \/\/ 每个日志文件记录日志的总时间（秒）$/;"	v	file:
 g_multi_thread	common/log.cpp	/^static int g_multi_thread;$/;"	v	file:
 g_shift_fd_mutex	common/log.cpp	/^static pthread_mutex_t g_shift_fd_mutex = PTHREAD_MUTEX_INITIALIZER;$/;"	v	file:
+getDB	DBMng.hpp	/^DataBase *DBMng::getDB(uint8_t index)$/;"	f	class:dbproxy::DBMng	signature:(uint8_t index)
 getNumber	Thread.hpp	/^  uint8_t getNumber() const {return _num; }$/;"	f	class:dbproxy::Thread	access:public	signature:() const
+getResult	DataBase.cpp	/^bool DataBase::getResult(const std::string& sql) $/;"	f	class:dbproxy::DataBase	signature:(const std::string& sql)
+getResult	DataBase.hpp	/^  bool getResult(const std::string& sql) ;$/;"	p	class:dbproxy::DataBase	access:private	signature:(const std::string& sql)
+getServerVersion	DataBase.cpp	/^uint32_t DataBase::getServerVersion()$/;"	f	class:dbproxy::DataBase	signature:()
+getServerVersion	DataBase.hpp	/^  uint32_t getServerVersion();$/;"	p	class:dbproxy::DataBase	access:public	signature:()
 getTid	Thread.hpp	/^  pthread_t getTid() const  {return _tid; }$/;"	f	class:dbproxy::Thread	access:public	signature:() const
 get_log_seq_nonrecycle	common/log.cpp	/^get_log_seq_nonrecycle(int lvl)$/;"	f	file:	signature:(int lvl)
 get_log_seq_recycle	common/log.cpp	/^get_log_seq_recycle(int lvl)$/;"	f	file:	signature:(int lvl)
 get_log_time	common/log.cpp	/^inline int get_log_time()$/;"	f	signature:()
 get_logfile_seqno	common/log.cpp	/^get_logfile_seqno(const char* filename, int loglvl)$/;"	f	file:	signature:(const char* filename, int loglvl)
 has_init	common/log.cpp	/^static int has_init;$/;"	v	file:
-init	Thread.cpp	/^void Thread::init()$/;"	f	class:dbproxy::Thread	signature:()
-init	Thread.hpp	/^  void init();$/;"	p	class:dbproxy::Thread	access:public	signature:()
+init	DBMng.cpp	/^bool DBMng::init() $/;"	f	class:dbproxy::DBMng	signature:()
+init	DBMng.hpp	/^  bool init() ;$/;"	p	class:dbproxy::DBMng	access:public	signature:()
+init	DataBase.cpp	/^bool DataBase::init() $/;"	f	class:dbproxy::DataBase	signature:()
+init	DataBase.hpp	/^  bool init() ;$/;"	p	class:dbproxy::DataBase	access:public	signature:()
+init	Thread.cpp	/^void Thread::init(uint8_t num)$/;"	f	class:dbproxy::Thread	signature:(uint8_t num)
+init	Thread.hpp	/^  void init(uint8_t num);$/;"	p	class:dbproxy::Thread	access:public	signature:(uint8_t num)
 init	ThreadMng.cpp	/^bool ThreadMng::init() $/;"	f	class:dbproxy::ThreadMng	signature:()
-init	ThreadMng.hpp	/^  bool init() ;$/;"	p	class:dbproxy::ThreadMng	access:public	signature:()
+init	ThreadMng.hpp	/^  bool init();$/;"	p	class:dbproxy::ThreadMng	access:public	signature:()
+interactiveConnect	DataBase.cpp	/^void DataBase::interactiveConnect()$/;"	f	class:dbproxy::DataBase	signature:()
+interactiveConnect	DataBase.hpp	/^  void interactiveConnect();$/;"	p	class:dbproxy::DataBase	access:private	signature:()
 likely	common/log.cpp	20;"	d	file:
 likely	common/log.cpp	22;"	d	file:
 log_buf_sz	common/log.cpp	/^	log_buf_sz	= 8192$/;"	e	enum:__anon1	file:
@@ -189,22 +259,31 @@ main	test.cpp	/^int main() $/;"	f	signature:()
 max_log_files	common/log.cpp	/^static int max_log_files;$/;"	v	file:
 open_fd	common/log.cpp	/^open_fd(int lvl, const struct tm* tm)$/;"	f	file:	signature:(int lvl, const struct tm* tm)
 opfd	common/log.cpp	/^	int		opfd;$/;"	m	struct:fds_t	file:	access:public
+query	DataBase.cpp	/^bool DataBase::query(const std::string& sql)$/;"	f	class:dbproxy::DataBase	signature:(const std::string& sql)
+query	DataBase.hpp	/^  bool query(const std::string& sql) ;$/;"	p	class:dbproxy::DataBase	access:private	signature:(const std::string& sql)
 request_log_seq	common/log.cpp	/^request_log_seq(int lvl)$/;"	f	file:	signature:(int lvl)
 rm_files_by_seqno	common/log.cpp	/^rm_files_by_seqno(int loglvl, int seqno, const struct tm* tm)$/;"	f	file:	signature:(int loglvl, int seqno, const struct tm* tm)
 seq	common/log.cpp	/^	int		seq;$/;"	m	struct:fds_t	file:	access:public
 set_log_dest	common/log.cpp	/^void set_log_dest(log_dest_t dest)$/;"	f	signature:(log_dest_t dest)
 set_log_dest	common/log.hpp	/^void set_log_dest(log_dest_t dest);$/;"	p	signature:(log_dest_t dest)
 shift_fd	common/log.cpp	/^static int shift_fd(int lvl, const struct tm* tm)$/;"	f	file:	signature:(int lvl, const struct tm* tm)
+sqlBuf	DataBase.cpp	/^static char sqlBuf[LEN]; \/\/sql 语句buf$/;"	m	namespace:dbproxy	file:
 stream	common/my-utility-lib/zhao/tools.h	113;"	d
 stream	common/tools.h	113;"	d
-thread_start	Thread.cpp	/^void * thread_start(void *arg)$/;"	f	namespace:dbproxy	signature:(void *arg)
+threadStart	ThreadMng.cpp	/^void * threadStart(void *arg)$/;"	f	namespace:dbproxy	signature:(void *arg)
 trace_msg	common/my-utility-lib/zhao/tools.h	117;"	d
 trace_msg	common/tools.h	117;"	d
+unInit	DBMng.cpp	/^bool DBMng::unInit()$/;"	f	class:dbproxy::DBMng	signature:()
+unInit	DBMng.hpp	/^  bool unInit() ;$/;"	p	class:dbproxy::DBMng	access:public	signature:()
+unInit	DataBase.cpp	/^void DataBase::unInit() $/;"	f	class:dbproxy::DataBase	signature:()
+unInit	DataBase.hpp	/^  void unInit();$/;"	p	class:dbproxy::DataBase	access:public	signature:()
 unlikely	common/log.cpp	25;"	d	file:
 unlikely	common/log.cpp	27;"	d	file:
+update	DataBase.hpp	/^  void update(uint32_t now );$/;"	p	class:dbproxy::DataBase	access:public	signature:(uint32_t now )
 write_log	common/log.cpp	/^void write_log(int lvl,uint32_t key, const char *fmt, ...)$/;"	f	signature:(int lvl,uint32_t key, const char *fmt, ...)
 write_log	common/log.hpp	/^void write_log(int lvl,uint32_t key, const char* fmt, ...);$/;"	p	signature:(int lvl,uint32_t key, const char* fmt, ...)
 write_syslog	common/log.cpp	/^void write_syslog(int lvl, const char* fmt, ...)$/;"	f	signature:(int lvl, const char* fmt, ...)
 write_syslog	common/log.hpp	/^void write_syslog(int lvl, const char* fmt, ...);$/;"	p	signature:(int lvl, const char* fmt, ...)
+~DBMng	DBMng.hpp	/^  ~DBMng() {};$/;"	f	class:dbproxy::DBMng	access:public	signature:()
+~DataBase	DataBase.hpp	/^	~DataBase() {} $/;"	f	class:dbproxy::DataBase	access:public	signature:()
 ~Thread	Thread.hpp	/^  ~Thread() {}$/;"	f	class:dbproxy::Thread	access:public	signature:()
-~ThreadMng	ThreadMng.hpp	/^  ~ThreadMng() {}$/;"	f	class:dbproxy::ThreadMng	access:public	signature:()

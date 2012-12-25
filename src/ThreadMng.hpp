@@ -24,6 +24,7 @@
 
 namespace dbproxy {
 
+//每个线程执行自己的mysql connect
 class ThreadMng
 {
 public:
@@ -33,13 +34,21 @@ public:
 public:
   //@brief: 初始化所有线程
   bool init();
-
-
+  Thread *getThread(uint8_t who) ;
 
 private:
   Thread _threadPool[THREAD_COUNT] ;
 };
 
+extern ThreadMng gThreadMng;
+
+inline
+Thread *ThreadMng::getThread(uint8_t num)
+{
+  if (num >= THREAD_COUNT)
+    return nullptr;
+  return &_threadPool[num];
+}
 
 } //end namespace
 

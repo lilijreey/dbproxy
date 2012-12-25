@@ -26,6 +26,7 @@
 namespace dbproxy {
 
 
+class DataBase;
 class Thread 
 {
 public:
@@ -44,8 +45,11 @@ public:
   pthread_t getTid() const  {return _tid; }
 
 private:
+
+private:
   uint8_t  _num; //application-define id
   pthread_t _tid; // return by pthread_create
+  DataBase *_db; 
 };
 
 } //end namespace

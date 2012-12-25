@@ -22,11 +22,13 @@
 
 #include "Config.hpp"
 #include "DataBase.hpp"
+#include "Thread.hpp"
 
 namespace dbproxy {
 
 class DBMng
 {
+  friend class Thread;
   //NOCOPY
 public:
   DBMng() {};
@@ -40,6 +42,7 @@ public:
 
   DataBase *getDB(uint8_t index);
 
+  //sql buf
 private:
  DataBase _dbPool[DB_CONNECT_COUNT];
 };
