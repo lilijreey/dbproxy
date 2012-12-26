@@ -19,25 +19,36 @@ namespace dbproxy {
 static std::pair<pthread_mutex_t, uint8_t> 
     initMutex = {PTHREAD_MUTEX_INITIALIZER, 0};
 
-void Thread::init(uint8_t num)
+void *Thread::threadStart(void *thread)
 {
-  initMutex.second = num;
-  assert(num <= THREAD_COUNT);
-  _num = initMutex.second;
-  _tid = pthread_self();
-  _db = gDBMng.getDB(_num); 
+  Thread *t = static_cast<Thread*>(thread);
+  t->doThreadRun();
+  return nullptr;
+}
+
+void Thread::doThreadRun()
+{
   PCHECK(pthread_detach(_tid));
 
   PCHECK(pthread_mutex_lock(&initMutex.first));
-  printf("Thread[%u] num[%tu]\n", _num, _tid);
-  printf("vsersion[%u]\n",_db->getServerVersion());
+  printf("Thread num[%u] pthreadId[%tu] pid[%u] tid[%tu]\n", _num, _tid, getpid(), gettid());
+ // printf("vsersion[%u]\n",_db->getServerVersion());
   PCHECK(pthread_mutex_unlock(&initMutex.first));
-
-
+  //do specifiy things
 
   sleep(3);
+}
 
-  //pthread_exit(0);
+void Thread::start(uint8_t num)
+{
+  assert(!_started);
+
+  assert(num <= THREAD_COUNT);
+  _num = num;
+  _started = true;
+//  _db = gDBMng.getDB(_num); 
+
+  PCHECK(pthread_create(&_tid, NULL, &threadStart, this));
 }
 
 

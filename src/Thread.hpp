@@ -29,26 +29,35 @@ namespace dbproxy {
 class DataBase;
 class Thread 
 {
+private:
+ static void *threadStart(void *);
 public:
   Thread():
       _num(THREAD_COUNT)
+      ,_started(false)
   {}
+
 
   ~Thread() {}
 
   // s = pthread_attr_destroy(&attr);
 public:
-  void init(uint8_t num);
+  bool isStarted() const {return _started;}
+  void start(uint8_t num);
+  //void stop(){}
 
 public:
   uint8_t getNumber() const {return _num; }
   pthread_t getTid() const  {return _tid; }
 
 private:
+  void doThreadRun();
 
 private:
   uint8_t  _num; //application-define id
+  bool _started;
   pthread_t _tid; // return by pthread_create
+  //pit_t pid;
   DataBase *_db; 
 };
 
